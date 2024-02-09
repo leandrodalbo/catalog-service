@@ -1,6 +1,8 @@
 package com.boot.demo.catalog.service;
 
 import com.boot.demo.catalog.domain.Book;
+import com.boot.demo.catalog.exceptions.AlreadyExistException;
+import com.boot.demo.catalog.exceptions.NotFoundException;
 import com.boot.demo.catalog.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +21,23 @@ public class BookService {
 
     public Book bookDetails(String isbn) {
         return repository.findByIsbn(isbn)
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(NotFoundException::new);
     }
 
     public Book newBook(Book book) {
         if (repository.existsByIsbn(book.isbn())) {
-            throw new RuntimeException("");
+            throw new AlreadyExistException();
         }
 
         return repository.save(book);
     }
 
     public void removeBook(String isbn) {
-        repository.deleteByIsbn(isbn);
+        if (repository.existsByIsbn(isbn)) {
+            repository.deleteByIsbn(isbn);
+        } else {
+            throw new NotFoundException();
+        }
     }
 
 
