@@ -42,15 +42,18 @@ public class BookService {
 
 
     public Book updateBook(Book book) {
-        return repository.findByIsbn(book.isbn())
-                .map(it -> {
-                    return repository.save(new Book(
-                            it.isbn(),
-                            book.title(),
-                            book.author(),
-                            book.price()
-                    ));
-                })
-                .orElseGet(() -> newBook(book));
+        var existing = repository.existsByIsbn(book.isbn());
+
+        if (existing) {
+            return repository.save(new Book(
+                    book.isbn(),
+                    book.title(),
+                    book.author(),
+                    book.price()
+            ));
+
+        }
+
+        throw new NotFoundException();
     }
 }

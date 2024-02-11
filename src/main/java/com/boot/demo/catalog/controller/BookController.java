@@ -2,6 +2,7 @@ package com.boot.demo.catalog.controller;
 
 import com.boot.demo.catalog.domain.Book;
 import com.boot.demo.catalog.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,14 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addBook(@RequestBody Book book) {
+    public Book addBook(@Valid @RequestBody Book book) {
         return service.newBook(book);
     }
 
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book updateBook(@RequestBody Book book) {
+    public Book updateBook(@Valid @RequestBody Book book) {
         return service.updateBook(book);
     }
 

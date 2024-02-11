@@ -1,4 +1,16 @@
 package com.boot.demo.catalog.domain;
 
-public record Book(String isbn, String title, String author, String price) {
+import jakarta.validation.constraints.NotBlank;
+
+public record Book(
+
+        @NotBlank(message = "isbn is required")
+        String isbn,
+
+        @NotBlank(message = "title is required")
+        String title,
+        @NotBlank(message = "author is required")
+        String author,
+        @NotBlank(message = "price is required")
+        String price) {
 }
