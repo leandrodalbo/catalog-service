@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
     java
     id("org.springframework.boot") version "3.2.2"
@@ -24,4 +26,10 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active", "testData")
 }
+
+tasks.withType<BootRun> {
+    systemProperty("spring.profiles.active", "testData")
+}
+
