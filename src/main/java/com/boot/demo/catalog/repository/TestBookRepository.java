@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-@Profile("testData")
+@Profile("dev")
 public class TestBookRepository implements BookRepository {
 
     private final Map<String, Book> books = new HashMap<>();

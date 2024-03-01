@@ -17,19 +17,33 @@ repositories {
     mavenCentral()
 }
 
+ext {
+
+    set("springCloudVersion", "2023.0.0")
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation ("org.springframework.cloud:spring-cloud-config-client")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+    }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperty("spring.profiles.active", "testData")
+    systemProperty("spring.profiles.active", "dev")
 }
 
 tasks.withType<BootRun> {
-    systemProperty("spring.profiles.active", "testData")
+    systemProperty("spring.profiles.active", "dev")
 }
 

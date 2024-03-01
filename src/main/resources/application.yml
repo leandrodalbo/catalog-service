@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: catalog
+  profiles:
+    active: dev
+  config:
+    import: "configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8087
