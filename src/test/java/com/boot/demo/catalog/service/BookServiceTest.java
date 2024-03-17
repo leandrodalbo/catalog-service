@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
-    private final Book book = new Book("ABC112", "ANY", "ANY", "ANY");
+    private final Book book = Book.of("ABC112", "ANY", "ANY", "ANY");
     @Mock
     private BookRepository repository;
     @InjectMocks
@@ -109,8 +109,8 @@ public class BookServiceTest {
 
     @Test
     void shouldUpdateAnExistingBook() {
-        given(repository.existsByIsbn(anyString())).willReturn(true);
-        var updating = new Book("ABC112", "updated", "updated", "updated");
+        given(repository.findByIsbn(anyString())).willReturn(Optional.of(book));
+        var updating = Book.of("ABC112", "updated", "updated", "updated");
 
         service.updateBook(updating);
 
@@ -119,7 +119,7 @@ public class BookServiceTest {
 
     @Test
     void shouldNotUpdateItIFNotFound() {
-        given(repository.existsByIsbn(anyString())).willReturn(false);
+        given(repository.findByIsbn(anyString())).willReturn(Optional.empty());
 
         assertThatExceptionOfType(NotFoundException.class).isThrownBy(
                 () -> service.updateBook(book)

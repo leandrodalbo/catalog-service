@@ -19,7 +19,7 @@ public class BookTest {
     @Test
     void shouldValidateRequiredFields() {
 
-        assertThat(validator.validate(new Book("", "", "", "")).size()).isEqualTo(4);
+        assertThat(validator.validate(Book.of("", "", "", "")).size()).isEqualTo(4);
 
     }
 }

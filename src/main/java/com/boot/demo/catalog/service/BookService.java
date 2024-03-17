@@ -42,18 +42,17 @@ public class BookService {
 
 
     public Book updateBook(Book book) {
-        var existing = repository.existsByIsbn(book.isbn());
+        var existing = repository.findByIsbn(book.isbn()).orElseThrow(NotFoundException::new);
 
-        if (existing) {
-            return repository.save(new Book(
-                    book.isbn(),
-                    book.title(),
-                    book.author(),
-                    book.price()
-            ));
+        return repository.save(new Book(
+                existing.id(),
+                book.isbn(),
+                book.title(),
+                book.author(),
+                book.price(),
+                existing.version()
+        ));
 
-        }
 
-        throw new NotFoundException();
     }
 }
