@@ -1,6 +1,9 @@
 welcome:
   message: Catalog Application running on Dev
 spring:
+  sql:
+    init:
+      mode: always
   datasource:
     username: user
     password: password
