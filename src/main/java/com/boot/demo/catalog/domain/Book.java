@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record Book(
 
+
         @NotBlank(message = "isbn is required")
         String isbn,
 
