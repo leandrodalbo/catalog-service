@@ -29,3 +29,8 @@ docker build -t catalog-config .
 docker run -d --name catalog-config --net catalog-net -p 8087:8087 catalog-config
 docker run -d --name catalog --net catalog-net -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:postgresql://catalogdb:5432/catalog -e SPRING_PROFILES_ACTIVE=dev catalog
 ```
+
+## Package and Publish
+```bash
+./gradlew bootBuildImage --imageName ghcr.io/leandrodalbo/catalog --publishImage --P registryUrl=ghcr.io --P registryUsername=<> --P registryToken=<>  
+```

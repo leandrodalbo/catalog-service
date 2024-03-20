@@ -1,3 +1,4 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
@@ -49,7 +50,21 @@ tasks.withType<Test> {
     systemProperty("spring.profiles.active", "dev")
 }
 
+tasks.withType<BootBuildImage> {
+    imageName = "catalog"
+    environment = mapOf("BP_JVM_VERSION" to "17.*")
+
+    docker{
+        publishRegistry{
+            username = "${project.findProperty("registryUsername")}"
+            password = "${project.findProperty("registryToken")}"
+            url = "${project.findProperty("registryUrl")}"
+        }
+    }
+
+}
+
+
 tasks.withType<BootRun> {
     systemProperty("spring.profiles.active", "dev")
 }
-
