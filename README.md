@@ -1,7 +1,5 @@
 # Catalog Service
 
-Project to refresh different spring-boot concepts and explore.
-
 ## build image
 
 ```bash
